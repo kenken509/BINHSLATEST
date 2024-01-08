@@ -87,7 +87,7 @@ class DatabaseBackUpController extends Controller
             \Log::error('Database restoration failed. Return code: ' . $returnVar);
             \Log::error('Command Output: ' . implode("\n", $output));
 
-            return redirect()->route('database.backup.show')->with('error', 'Database restoration failed.');
+            return redirect()->route('database.backup.show')->with('error', 'Database restoration failed!.');
         }
 
         // Successful restoration
