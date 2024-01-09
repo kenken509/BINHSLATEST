@@ -2,7 +2,7 @@
    <DashboardLayout :user="user">
     <div class="border-bot-only border-gray-600 shadow-md mb-4">
         <span class="text-[20px] font-bold text-gray-500">Edit Post Page</span> 
-        {{ web.webPage }}
+        
     </div>
     <!--About Page-->
     
@@ -377,7 +377,6 @@ const submit = ()=> {
     const googleDriveRegex = /^https:\/\/drive\.google\.com\/.*$/;
     const googleDriveLinkStatus = ref(null);
     
-
     if(web.webPage === 'Downloads')
     {
         console.log('media attachment: '+form.mediaType)
@@ -655,6 +654,11 @@ const submit = ()=> {
             console.log(googleDriveLinkStatus.value);
         }
     }
-      
+    
+    if(web.webPage === 'News')
+    {
+        form.post(route('editAboutPost.store'), { onSuccess: ()=> form.reset(['images', 'installer'])})
+    }
+    
 };
 </script>

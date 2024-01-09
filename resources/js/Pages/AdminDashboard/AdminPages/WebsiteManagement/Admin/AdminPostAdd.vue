@@ -180,10 +180,11 @@
                             <Button label="Submit" class="w-full " type="submit" />
                         </div>
                     </div>
-                </div>
-
-                <!--News Page-->
-                <div v-if="pagesToAdd === 'News'" class="col-span-12">
+                </div>               
+            </div>
+            
+            <!--News Page-->
+            <div v-if="pagesToAdd === 'News'" class="col-span-12">
                     <div>
                         <div class="flex flex-col">
                            <h1 class="mb-6">Title: </h1>
@@ -228,10 +229,6 @@
                         </div>
                     </div>
                 </div>
-                
-                
-            </div>
-            
         </form>
        
     </DashboardLayout>

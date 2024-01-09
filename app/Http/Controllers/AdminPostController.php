@@ -428,7 +428,7 @@ class AdminPostController extends Controller
                 $postToUpdate->content = $request->content;
                 $postToUpdate->updated_by = Auth::user()->id;
                 $postToUpdate->save();
-
+                
                 return redirect()->route('admin.post.all')->with('success', 'Successfully Updated!');
             }
         }

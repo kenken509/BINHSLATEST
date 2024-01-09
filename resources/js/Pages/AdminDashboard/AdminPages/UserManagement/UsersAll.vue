@@ -393,7 +393,7 @@ const printPage = (divName)=>{
 }
 
 const appUrl = '/storage/'
-const defaultImage = 'images/default.png'
+const defaultImage = 'Images/default.png'
 
 // alert codes
 
