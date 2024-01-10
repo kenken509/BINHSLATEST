@@ -112,7 +112,6 @@ Route::controller(AuthController::class)->group(function(){
     //Route::get('/forgot-password', 'showForgotPassword')->name('forgot.password');
     Route::post('/forgot-password/email-link', 'sendEmailResetPassword')->name('email.reset.password');
     
-
     Route::get('user/otp/verify/{id}', 'showOtpVerification')->name('otpVerification.show');
     Route::post('user/otp/authenticate', 'authOtp')->name('otp.auth');
     Route::get('user/otp/resend/{id}', 'resendOtp')->name('otp.resend');

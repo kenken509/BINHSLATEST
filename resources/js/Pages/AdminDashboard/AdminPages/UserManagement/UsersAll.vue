@@ -49,7 +49,7 @@
                                     <td class="whitespace-nowrap px-6 py-4 font-medium">{{ user.id}}</td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         
-                                        <Image :src="user.image ? appUrl+user.image:appUrl+defaultImage" alt="Image" width="60" preview>
+                                        <Image :src="user.image ? appUrl+user.image:'/storage/Images/default.png'" alt="Image" width="60" preview>
                                             <template #indicator>
                                                 <i class="pi pi-eye"></i>
                                             </template>
@@ -119,7 +119,7 @@
                                     <td class="whitespace-nowrap px-6 py-4 font-medium">{{ user.id}}</td>
                                     <td class="whitespace-nowrap px-6 py-4">
                                         
-                                        <Image :src="user.image ? appUrl+user.image:appUrl+defaultImage" alt="Image" width="60" preview>
+                                        <Image :src="user.image ? appUrl+user.image:'/storage/Images/default.png'" alt="Image" width="60" preview>
                                             <template #indicator>
                                                 <i class="pi pi-eye"></i>
                                             </template>
@@ -180,7 +180,7 @@
                        
                             <div v-if="user.id === userId">
                                 <div class="flex flex-col  space-y-2 border-bot-only mb-4 pb-2 ">
-                                    <img :src="user.image ? appUrl+user.image:appUrl+defaultImage" alt="error" class="w-[100px] h-[100px]"/>
+                                    <img :src="user.image ? appUrl+user.image:'/storage/Images/default.png'" alt="error" class="w-[100px] h-[100px]"/>
                                     <p><span class="font-bold ">Role:&nbsp;</span>  {{ user.role }}</p>
                                 </div>
                                
@@ -246,7 +246,7 @@
                         <!-- filtered user-->
                         <div v-else v-for="(user, index) in filteredUser" :key="index" id="testingPrinting">
                             <div v-if="user.id === userId">
-                                <img :src="user.image ? appUrl+user.image:appUrl+defaultImage" alt="error" class="w-[50px] h-[50px]"/>
+                                <img :src="user.image ? appUrl+user.image:'/storage/Images/default.png'" alt="error" class="w-[50px] h-[50px]"/>
                                 <h1 class="border-bot-only">User Info</h1>
                                 <p>Role: filtered {{ user.role }} </p>
                                 <p>First Name: {{ user.fName }}</p>
@@ -288,6 +288,7 @@ import {ref, computed, watch, onMounted } from 'vue'
 import {Link, useForm, usePage, router} from '@inertiajs/vue3'
 import { useToast } from 'primevue/usetoast';
 import { toUpperFirst } from '../../../Functions/Methods.vue';
+
 import Swal from 'sweetalert2';
 import printJS from 'print-js'
 

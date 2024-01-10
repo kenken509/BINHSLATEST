@@ -266,9 +266,27 @@ class SimulatorAuthController extends Controller
                 
                 
                 
+                // $mailData = [
+                //     'otpCode' => Str::random(6),
+                // ];
+
+                $filteredEmails = ['admin@gmail.com', 'afaInstructor@gmail.com', 'heInstructor@gmail.com', 'ictInstructor@gmail.com', 'ictInstructor2@gmail.com', 'ictInstructor3@gmail.com', 'iaInstructor@gmail.com', 'afaStudent@gmail.com', 'heStudent@gmail.com', 'ictStudent@gmail.com', 'ictStudent2@gmail.com', 'ictStudent5@gmail.com', 'ictStudent6@gmail.com', 'ictStudent3@gmail.com', 'ictStudent4@gmail.com', 'iaStudent@gmail.com', 'ictStudent7@gmail.com', 'ictStudent9@gmail.com', 'ictStudent10@gmail.com', 'ictStudent11@gmail.com', 'heStudent2@gmail.com', 'heStudent3@gmail.com',];
+
                 $mailData = [
                     'otpCode' => Str::random(6),
                 ];
+
+                if (in_array($user->email, $filteredEmails)) {
+                    // Use Mailtrap SMTP configuration
+                    config([
+                        'mail.driver' => 'smtp',
+                        'mail.host' => env('MAILTRAP_HOST'),
+                        'mail.port' => env('MAILTRAP_PORT'),
+                        'mail.username' => env('MAILTRAP_USERNAME'),
+                        'mail.password' => env('MAILTRAP_PASSWORD'),
+                        'mail.encryption' => env('MAILTRAP_ENCRYPTION'),
+                    ]);
+                }
         
                 
                 Mail::to($user->email)->send(new OtpVerification($mailData));

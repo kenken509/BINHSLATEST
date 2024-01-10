@@ -15,19 +15,19 @@
     </div>
     
     <div class="flex flex-col justify-center mt-5 mx-[10%]">
-        <div v-for="post in web.posts" :key="post.id" class="mt-5 mb-5">
+        <div v-for="post in web.posts" :key="post.id" class=" mb-5">
             <div class="flex flex-col lg:flex-row justify-center items-center ">
-                <span class="text-[20px] lg:text-[24px] font-serif ">Name:&nbsp; </span>
-                <span class="text-[20px] lg:text-[24px] font-serif ">{{ post.name }}</span>
+                <span class="text-[20px] lg:text-[24px] font-serif "> <i class="pi pi-user" style="font-size: 1rem; font-weight:bold"></i>  : &nbsp; </span>
+                <span class="text-[20px] lg:text-[30px] font-serif ">{{ post.name }}</span>
             </div>
 
             <div class="flex justify-center items-center">
-                <span class="font-serif text-[14px] text-gray-700">Phone Number:&nbsp; </span>
-                <span class="font-serif text-[14px] text-gray-700">{{ post.phoneNumber }}</span>
+                <span class=" text-[14px] text-gray-700"><i class="pi pi-phone" style="font-size: .8rem; font-weight:bold"></i> : &nbsp; </span>
+                <span class=" text-[14px] text-gray-700">{{ post.phoneNumber }}</span>
             </div>
 
             <div class="flex justify-center items-center">
-                <span class="font-serif text-[14px] text-gray-700">Email:&nbsp; </span>
+                <span class="font-serif text-[14px] text-gray-700"><i class="pi pi-envelope" style="font-size: .8rem; font-weight:bold"> </i> : &nbsp; </span>
                 <span class="font-serif text-[14px] text-gray-700"> {{ post.email }}</span>
             </div>
             <div class="flex justify-center items-center text-gray-500">
