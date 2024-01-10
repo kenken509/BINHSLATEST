@@ -11,18 +11,69 @@ use Illuminate\Support\Facades\Auth;
 class StrandsController extends Controller
 {
     public function showAgriFisheryArts(){
-        $agriFisheryArtsPosts = WebPost::where('subject_id','=',1)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
+        $user = Auth::user();
+
+        //$agriFisheryArtsPosts = WebPost::where('subject_id','=',1)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
+
+        $posts = WebPost::where('subject_id','=',1)
+                ->with(['attachments',
+                        'author',
+                        'reactions' => function ($query){
+                            $query->with('reactingUser');
+                        } ])
+                ->withCount('reactions')
+                ->orderBy('created_at', 'desc')->get();
+
+         // Check if the user has reacted to each post
+         foreach ($posts as $post) {
+            $userReaction = $post->reactions->where('user_id', $user->id)->first();
+            //$post->userHasReacted = $post->userHasReacted($user);
+            $post->userHasReacted = !is_null($userReaction);
+
+            // Include the type of reaction in the post data
+            $post->userReactionType = $post->userHasReacted ? $userReaction->type : null;
+
+            // Count the number of reactions of type 'heart' and 'like'
+            $post->heartReactionsCount = $post->reactions->where('type', 'heart')->count();
+            $post->likeReactionsCount = $post->reactions->where('type', 'like')->count();
+            
+        }
+
         return inertia('Index/WebPages/Strands/AgriFisheryArts',[
-            'posts' => $agriFisheryArtsPosts,
+            'posts' => $posts,
         ]);
     }
 
     public function showHE(){
+        $user = Auth::user();
+        //$homeEconomicsPosts = WebPost::where('subject_id','=',2)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
 
-        $homeEconomicsPosts = WebPost::where('subject_id','=',2)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
+        $posts = WebPost::where('subject_id','=',2)
+                ->with(['attachments',
+                        'author',
+                        'reactions' => function ($query){
+                            $query->with('reactingUser');
+                        } ])
+                ->withCount('reactions')
+                ->orderBy('created_at', 'desc')->get();
+
+         // Check if the user has reacted to each post
+         foreach ($posts as $post) {
+            $userReaction = $post->reactions->where('user_id', $user->id)->first();
+            //$post->userHasReacted = $post->userHasReacted($user);
+            $post->userHasReacted = !is_null($userReaction);
+
+            // Include the type of reaction in the post data
+            $post->userReactionType = $post->userHasReacted ? $userReaction->type : null;
+
+            // Count the number of reactions of type 'heart' and 'like'
+            $post->heartReactionsCount = $post->reactions->where('type', 'heart')->count();
+            $post->likeReactionsCount = $post->reactions->where('type', 'like')->count();
+            
+        }
         
         return inertia('Index/WebPages/Strands/HomeEconomics', [
-            'posts' => $homeEconomicsPosts,
+            'posts' => $posts,
         ]);
     }
 
@@ -56,15 +107,44 @@ class StrandsController extends Controller
             
         }
 
-       
+        
         return inertia('Index/WebPages/Strands/ICT', [
             'posts' => $posts,
         ]);
     }
 
     public function showIA(){
-        $posts = WebPost::where('subject_id','=',4)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
 
+        $user = Auth::user();
+        //$posts = WebPost::where('subject_id','=',4)->with(['attachments','author'])->orderBy('created_at', 'desc')->get();
+
+        $posts = WebPost::where('subject_id','=',4)
+                ->with(['attachments',
+                        'author',
+                        'reactions' => function ($query){
+                            $query->with('reactingUser');
+                        } ])
+                ->withCount('reactions')
+                ->orderBy('created_at', 'desc')->get();
+        
+               
+
+         // Check if the user has reacted to each post
+        foreach ($posts as $post) {
+            $userReaction = $post->reactions->where('user_id', $user->id)->first();
+            //$post->userHasReacted = $post->userHasReacted($user);
+            $post->userHasReacted = !is_null($userReaction);
+
+            // Include the type of reaction in the post data
+            $post->userReactionType = $post->userHasReacted ? $userReaction->type : null;
+
+            // Count the number of reactions of type 'heart' and 'like'
+            $post->heartReactionsCount = $post->reactions->where('type', 'heart')->count();
+            $post->likeReactionsCount = $post->reactions->where('type', 'like')->count();
+            
+        }
+        
+        
         return inertia('Index/WebPages/Strands/IndustrialArts', [
             'posts' => $posts,
         ]);

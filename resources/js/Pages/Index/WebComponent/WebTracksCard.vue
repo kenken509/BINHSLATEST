@@ -4,7 +4,7 @@
                     
             <div class=" flex flex-col mb-2 border ">
                 <div class="w-full  text-[30px] text-gray-800 font-serif mb-2">
-                    {{ toUpperFirst(post.title)  }} --test title--:{{ post.title  }}
+                    {{ toUpperFirst(post.title)  }}
                 </div>
                 
                 <div class="text-[12px] text-gray-400 ">
@@ -32,18 +32,18 @@
                         </Link>
                     </p>
                     
-                    <div @click="handleReactionClick(post.id,post.userHasReacted)" class="border  border-t-black  border-x-transparent border-b-transparent pt-4 flex justify-between">
+                    <div  class="border  border-t-black  border-x-transparent border-b-transparent pt-4 flex justify-between">
                         <!-- left reaction-->
                         <div class=" space-x-1 hover:cursor-pointer" @click="handleReactionModalClick(post.id)"> 
                             <i v-if="post.likeReactionsCount" class="pi pi-thumbs-up-fill" style="color: slateblue; font-size: 1rem;"> </i>
                             <i v-if="post.heartReactionsCount" class="pi pi-heart-fill" style="color: red; font-size: 1rem;"> </i>
                             <i v-if="post.reactions_count < 1" class="pi pi-thumbs-up" style="color: slateblue; font-size: 1rem;"> </i>
-                            {{  post.reactions_count }}
+                            {{  post.reactions_count }} 
                         </div>
                         <!-- left reaction-->
                             
                         <!-- right reaction-->
-                        <div  v-if="!post.userHasReacted">
+                        <div @click="handleReactionClick(post.id,post.userHasReacted)"  v-if="!post.userHasReacted">
                             <i  
                                 class="pi pi-thumbs-up hover:cursor-pointer" 
                                 style="font-size: 1rem; " 
@@ -90,7 +90,7 @@
             </div><!-- hanggang dito -->
             
             <!-- reactions MODAL-->
-            <Dialog v-model:visible="reactionModal" modal header=""  :style="{ width: '50vw' }" :breakpoints="{ '960px': '75vw', '641px': '100vw' }">
+            <Dialog v-model:visible="reactionModal" modal header="People who reacted"  :style="{ width: '50vw' }" :breakpoints="{ '960px': '75vw', '641px': '100vw' }">
                 <div v-for="post in data.webPosts">
                     <div v-if="post.id === reactionModalPostId">
                         <div class="flex items-center border p-2 rounded-md space-x-4">
