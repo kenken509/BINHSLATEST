@@ -208,7 +208,7 @@
              
 
              <!--Student Grades-->
-             <li>
+             <li v-if="user.role === 'instructor'">
                 <button type="button" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-[#0fa54e] focus:bg-[#0fa54e]" aria-controls="student-grades" data-collapse-toggle="student-grades" >
                   <i class="pi pi-calculator" style="color: rgb(197, 197, 197); font-size:1.5rem"></i>
                         <span class="flex-1 ml-3 text-left whitespace-nowrap" sidebar-toggle-item="student-grades">Student Grades</span>

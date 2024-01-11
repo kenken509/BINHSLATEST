@@ -18,7 +18,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('app:update-quiz-status')->everyMinute();
         $schedule->command('app:school-year-update')->everyMinute();
         $schedule->command('app:update-x-student')->everyMinute();
-        $schedule->command('db:backup')->everyMinute();
+        $schedule->command('db:backup')->everyMinute(); 
+        $schedule->command('db:deleteBackup')->everyMinute();
     }
 
     /**
