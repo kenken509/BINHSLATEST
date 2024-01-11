@@ -11,7 +11,7 @@
                 </span>
             </div>
        </div>
-       <span class="text-red-500">TO DO: IMPLEMENT VIEW QUIZ</span>
+       
        <div v-if="$page.props.flash.success" >{{ successMessage($page.props.flash.success)   }} </div>
        <div class=" overflow-x-auto shadow-md sm:rounded-lg">
            <table  class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -59,7 +59,7 @@
                            {{ formatDate(quiz.end_date) }}
                        </td>
                        <td class=" text-center ">
-                            <span class="pi pi-eye text-green-600 scale-150 hover:dark:scale-150 cursor-pointer" v-tooltip.left="'Grade Info'" @click="handleshowQuizInfo()"></span>
+                            <span class="pi pi-eye text-green-600 scale-150 hover:dark:scale-150 cursor-pointer" v-tooltip.left="'Grade Info'" @click="handleshowQuizInfo(quiz.id)"></span>
                         </td>
                        
                        <!-- <td  v-if="instructorSection.id === quiz.section_id">
@@ -69,64 +69,88 @@
                            <!-- </div>    
                        </td> -->
                    </tr>
-                   <Dialog v-model:visible="showQuizInfo" modal :test="selectedStudentGradeId"   :style="{ width: '90vw' } ">
-                        
-                        <div>
-                            <span class=" font-extrabold text-[24px] text-gray-500">Quiz Information</span>
-                            <div class="w-full">
-                                <hr class="border-t-2 border-gray-500">
-                            </div>
-                        </div>
-                        <div class="pl-2">
-                            
-                            <div class="flex items-center w-full mt-4">
-                                <span class="text-[23px]">Title: <span class="underline underline-offset-[4px]">{{ quiz.quiz.title }}</span></span>
-                            </div>
-                            <div class="w-full ">
-                                <span class="text-[23px]">Section: <span class="underline underline-offset-[4px]">{{ quiz.section.name }}</span></span>
-                            </div>
-                            <div class="w-full ">
-                                <span class="text-[23px]">Grading Period: <span class="underline underline-offset-[4px]">{{ quiz.quiz.grading_period }}</span></span>
-                                <hr class="border-t-2 border-gray-300 mt-2">
-                            </div>
-                            <div class="border border-2 rounded-md shadow-md mt-2 p-2">
-                                <div class="w-full ">
-                                    <span class="text-[23px]">Questions:</span>
-                                </div>
-                                <div v-for="(questions, index) in quiz.quiz.question" :key="quiz.id" class="w-full  ">
-                                    <div>
-                                        <div>
-                                            <span class="text-[23px]">{{ index+1 }}. {{questions.question}}</span>
-                                        
-                                        </div>
-                                        <div class="ml-11 mt-2"> 
-                                            <span class="text-green-500 underline underline-offset-[4px]">
-                                                Correct Answer: 
-                                                <span >{{ questions.correct_answer }} <i class="pi pi-check" style="font-size: 1rem"></i></span>
-                                            </span>
-                                        </div>
-                                        <div class="mt-2">
-                                            <div class=" ml-11">A. {{ questions.choices.option_a }}</div>
-                                            <div class="ml-11">B. {{ questions.choices.option_b }}</div>
-                                            <div class="ml-11">C. {{ questions.choices.option_c }}</div>
-                                            <div class="ml-11">D. {{ questions.choices.option_d }}</div>
-                                        </div>
-                                        
-                                        
+               </tbody>
+           </table>
+           <Dialog v-model:visible="showQuizInfo" modal header="Question Info"  :style="{ width: '80vw' }" :breakpoints="{ '960px': '75vw', '641px': '100vw' }">
+                <div ref="printable">
+                    <div class="flex flex-col justify-center items-center w-full bg-green-700 header-container-1 mb-2 rounded-md">
+                        <div class=" w-[100%] text-center text-2xl font-semibold header-container-2">  
+                            <div class="flex w-[100%] justify-between p-2 items-center font-sans header-container-3 ">
+                                <div class="flex items-center w-[100%] md:w-[70%] left-header">
+                                    <div class="flex "><img :src="'/storage/Images/logo1.png'" alt="TLE Logo" class="w-[100px] logo"/></div>
+                                    <div class="flex flex-col items-start ml-2 w-[100%] md:w-[70%] school-info-container ">
+                                        <span class="text-[20px] leading-tight mb-[2px] tracking-wider text-gray-200 school-acro">BINHS</span>
+                                        <span class="  md:inline-block text-[7px] md:text-[12px] text-gray-300  leading-tight mb-[2px]">Bulihan Integrated National Highschool</span>
+                                        <span class=" hidden md:inline-block text-[12px] text-gray-300  leading-tight mb-[2px]">Brgy. Old Bulihan, Silang, Philippines</span>
                                     </div>
                                 </div>
+                                
+                                
+                                <div class="flex flex-col justify-end items-end mr-4 invisible w-0 md:w-60  md:visible space-y-1  pt-2 right-header-container ">
+                                    <span class="text-[12px] text-center leading-tight w-[200px] text-gray-200 flex items-center   ">
+                                        <svg class="h-5 w-5 text-gray-200"  width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
+                                        <span class="text-[12px] text-center  text-gray-200 ml-2 ">Contact #: 0924-123-4567</span>
+                                        
+                                    </span>
+                                    <div class="flex items-center w-[200px]  ">
+                                        <svg class="h-5 w-5 text-gray-200 "  width="18" height="18" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <polyline points="3 9 12 15 21 9 12 3 3 9" />  <path d="M21 9v10a2 2 0 0 1 -2 2h-14a2 2 0 0 1 -2 -2v-10" />  <line x1="3" y1="19" x2="9" y2="13" />  <line x1="15" y1="13" x2="21" y2="19" /></svg>
+                                        <span class="text-[12px] text-center  text-gray-200 ml-2 ">
+                                            email: bulihan@gmail.com
+                                        </span>
+                                    </div>
+                                    
+                                </div>
                             </div>
-                            
                         </div>
-                        <template #footer>
-                            <Button label="Close" icon="pi pi-times" style="background-color: #4F46E5; color: whitesmoke;" @click="handleshowQuizInfo" text />
-                            
-                        </template>
-                   </Dialog>
-               </tbody>
-               
-           </table>
-           
+                    </div>
+                    <div v-for="quiz in quizzes.quizzes" :key="quiz.id">                   
+                        <div v-if="quiz.id === selectedActiveQuizId">
+                            <div class="flex justify-between my-4 px-2 quiz-info-containter">
+                                <div>
+                                    <div>
+                                        <span class="text-xl">Title : {{ quiz.quiz.title }}</span>
+                                    </div> 
+                                    <div>
+                                        <span class="text-xl">Subject : {{ subjects[quiz.quiz.subject_id-1]  }}</span>
+                                    </div>
+                                    <div>
+                                        <span class="text-xl">Grading Period : {{ quiz.quiz.grading_period }}</span>
+                                    </div> 
+                                </div>
+
+                                <div>
+                                    
+                                    <div>
+                                        <span class="text-xl">Duration : {{ quiz.quiz.duration }} mins</span>
+                                    </div> 
+                                    <div>
+                                        <span class="text-xl">Items : {{ quiz.quiz.question.length }} </span>
+                                    </div> 
+                                </div>
+                            </div>
+
+                            <hr class="print-hidden-answer border-b-2">
+                            <div v-for="(question,index) in quiz.quiz.question" :key="question.id" class="my-2 option-container-1">
+                                <div class="question-container"> {{ index+1 }}. <span >{{ question.question }}</span> </div>
+                                <div class="print-hidden-answer">Correct Answer : <span class="text-green-500">{{ question.correct_answer }}  asdfasdf</span> </div> 
+                                <div class="ml-10 option-container">
+                                    <div>A. {{ question.choices.option_a }}</div> 
+                                    <div>B. {{ question.choices.option_b }}</div> 
+                                    <div>C. {{ question.choices.option_c }}</div> 
+                                    <div>D. {{ question.choices.option_d }}</div>
+                                </div>
+                                <hr class="print-hidden-answer">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <template #footer>
+                    <Button label="Close" icon="pi pi-times" @click="showQuizInfo = false" text />
+                    <Button label="Print" icon="pi pi-check" @click="printDiv" autofocus />
+                </template> 
+            
+            </Dialog>
             <!--ACTIVATE QUIZ MODAL-->
             <!-- <Dialog v-model:visible="updateQuizModal" modal header="Send Quiz"  :style="{ width: '60vw' }" :breakpoints="{ '960px': '75vw', '641px': '95vw' }">
                 <hr class="bg-gray-400 h-[2px] mb-2">
@@ -198,6 +222,12 @@ const user = usePage().props.user;
 const quizzes = defineProps({
    quizzes:Array,
 })
+const subjects = ref([
+    'Agri-Fishery Arts',
+    'HOME ECONOMICS',
+    'ICT',
+    'INDUSTRIAL ARTS',
+])
 
 onMounted(()=>{
     filteredData.value = quizzes.quizzes
@@ -328,8 +358,66 @@ const changePageClick = (index)=>
 // quiz info modal logic
 
 const showQuizInfo = ref(false);
-
-const handleshowQuizInfo = () =>{
+const selectedActiveQuizId = ref(null);
+const handleshowQuizInfo = (quizId) =>{
     showQuizInfo.value = !showQuizInfo.value
+    selectedActiveQuizId.value = quizId;
+}
+
+
+// PRINT LOGIC
+const printable = ref(null);
+
+function printDiv() {
+    const printContents = printable.value.innerHTML;
+    
+    // Create a new windows
+    const printWindow = window.open('', '_blank');
+
+    // Write the printable content to the new window
+    printWindow.document.write('<html><head><title>Quiz Information</title>');
+
+    //Manually include some Tailwind CSS styles
+    printWindow.document.write('<style>');
+    printWindow.document.write('body { font-family: "Arial", sans-serif; background-color:white; }');
+    printWindow.document.write('.text-red-500 { color: #ef4444; }'); // Example Tailwind class 
+    
+   
+    printWindow.document.write('.header-container-1{background-color: #034515; padding:4px}')
+    printWindow.document.write('.header-container-2{   }')
+    printWindow.document.write('.header-container-3{ display:flex; justify-content: space-between; color:whitesmoke   }')
+    printWindow.document.write('.logo{ width: 100px; height: 100px}')
+    printWindow.document.write('.left-header{ display:flex; align-items:center }')
+    printWindow.document.write('.right-header-container{ display:flex; flex-direction: column;   justify-content:center; align-items:center;  margin-right:10px;}')
+    printWindow.document.write('.school-info-container{ display:flex; flex-direction: column; margin-left:2px}')
+        // ml-10 option-container
+    printWindow.document.write('.quiz-info-containter{ display:flex; justify-content:space-between; padding:10px 4px 10px 4px; border-bottom:2px solid black} ')
+    printWindow.document.write('.print-hidden-answer{ display:none; }')
+    printWindow.document.write('.option-container{ margin-left:30px; }')
+    printWindow.document.write('.option-container-1{ padding:10px 0 5px 0; }')
+    printWindow.document.write('.question-container{ padding:0px 0 5px 0; }')    
+
+
+    //Include other styles as needed
+    printWindow.document.write('</style>');
+
+    // Complete the head section and start the body
+    printWindow.document.write('</head><body>');
+    
+    // Add the printable content
+    printWindow.document.write(printContents);
+
+    // Complete the body and HTML
+    printWindow.document.write('</body></html>');
+    printWindow.document.close();
+        
+    // Use setTimeout to ensure that the styles are applied before printing
+    setTimeout(() => {
+        printWindow.print();
+        printWindow.onafterprint = () => {
+            printWindow.close();
+            
+        };
+    }, 1000); // Adjust the delay as needed
 }
 </script>
