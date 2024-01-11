@@ -17,7 +17,7 @@
                     <input type="text" placeholder="Enter OTP code" class="rounded-md w-full" v-model="form.otp">
                 </div>
                 <div class=" w-full mt-4">
-                    <button type="button" class=" p-2 rounded-md w-full bg-indigo-600 hover:bg-indigo-500 text-gray-100" method="post" @click="verify" >Verify OTP</button>
+                    <button type="button" class=" p-2 rounded-md w-full bg-indigo-600 hover:bg-indigo-500 text-gray-100" :disabled="form.processing" method="post" @click="verify" >Verify OTP</button>
                 </div>
                 
                 <div class="mt-2 w-full">

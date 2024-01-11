@@ -44,7 +44,7 @@
                         </span>
                     </div> -->
                     <div class="w-full my-8">
-                        <Button label="Submit" class="w-full" type="submit"/>
+                        <Button label="Submit" class="w-full" :disabled="form.processing" type="submit"/>
                     </div>
                 </form>
             </div>

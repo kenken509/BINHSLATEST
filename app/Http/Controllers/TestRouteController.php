@@ -86,6 +86,7 @@ class TestRouteController extends Controller
     {
         //{"studentId":8,"quizId":2,"gradingPeriod":"1st","studentScore":1,"quizGrade":"33.33","status":"done"}
         
+        dd($request->studentActiveQuizId);
         $studentQuiz = StudentActiveQuiz::findOrFail($request->studentActiveQuizId);
 
         $studentQuiz->quiz_score        = $request->studentScore;
